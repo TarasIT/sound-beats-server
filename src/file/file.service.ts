@@ -19,7 +19,7 @@ export class FileService {
 
       if (!fs.existsSync(filePath)) {
         console.log('1- filePath', fs.existsSync(filePath));
-        fs.mkdirSync(filePath, { recursive: true });
+        fs.mkdirSync(filePath, { recursive: false });
       }
 
       console.log('2- filePath', fs.existsSync(filePath));
