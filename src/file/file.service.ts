@@ -17,7 +17,12 @@ export class FileService {
       const fileName = uuid.v4() + '.' + fileExtension;
       const filePath = path.resolve(__dirname, '..', 'static', type);
 
-      if (!fs.existsSync(filePath)) fs.mkdirSync(filePath, { recursive: true });
+      if (!fs.existsSync(filePath)) {
+        console.log('1- filePath', fs.existsSync(filePath));
+        fs.mkdirSync(filePath, { recursive: true });
+      }
+
+      console.log('2- filePath', fs.existsSync(filePath));
 
       fs.writeFileSync(path.resolve(filePath, fileName), file.buffer);
       return type + '/' + fileName;
