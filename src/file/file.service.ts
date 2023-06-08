@@ -17,7 +17,7 @@ export class FileService {
       const fileName = uuid.v4() + '.' + fileExtension;
       const filePath = path.resolve(__dirname, '..', 'static', type);
 
-      createDirectories(filePath);
+      if (!fs.existsSync(filePath)) fs.mkdirSync(filePath);
 
       fs.writeFileSync(path.resolve(filePath, fileName), file.buffer);
       return type + '/' + fileName;
@@ -26,17 +26,6 @@ export class FileService {
         `file service error: ${e.message}`,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
-    }
-  }
-}
-
-function createDirectories(filePath: string): void {
-  const directories = filePath.split(path.sep);
-  let directoryPath = '';
-  for (const directory of directories) {
-    directoryPath = path.join(directoryPath, directory);
-    if (!fs.existsSync(path.sep + directoryPath)) {
-      fs.mkdirSync(path.sep + directoryPath);
     }
   }
 }
